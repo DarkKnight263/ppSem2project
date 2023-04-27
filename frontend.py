@@ -37,7 +37,7 @@ class App(customtkinter.CTk):
         self.sidebar_frame.grid(row=0, column=0, rowspan=4, sticky="nsew")
         self.sidebar_frame.grid_rowconfigure(4, weight=1)
 
-        my_image = customtkinter.CTkImage(light_image=Image.open("./assets/logo.png"), dark_image=Image.open("./assets/logo.png"), size=(200, 200))
+        my_image = customtkinter.CTkImage(light_image=Image.open("cryptologo.png"), dark_image=Image.open("cryptologo.png"), size=(200, 200))
 
         self.logo_label = customtkinter.CTkLabel(self.sidebar_frame, text="", font=customtkinter.CTkFont(size=20, weight="bold"), image=my_image)
         self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))
@@ -167,10 +167,10 @@ class App(customtkinter.CTk):
     def cmpr(self):
         c1 = self.crypt1_cb.get()
         c2 = self.crypt2_cb.get()
-        crypt1_box1 = -1
-        crypt1_box2 = -1
-        crypt2_box1 = -1
-        crypt2_box2 = -1
+        crypt1_box1 = 0
+        crypt1_box2 = 0
+        crypt2_box1 = 0
+        crypt2_box2 = 0
         if c1 and c2:
             if len(self.crypt1_ent1.get()) > 0:
                 crypt1_box1 = float(self.crypt1_ent1.get())
@@ -213,7 +213,8 @@ class App(customtkinter.CTk):
         else:
             self.error_box("PLEASE SELECT ATLEAST ONE CRYPTO-CURRENCY")
         actual_backendObj = backend.backend(self.Currency_choice_optionemenu.get()[0:3], crypt1_box2, crypt1_box1, crypt2_box2, crypt2_box1)
-        self.cmpr_disp(actual_backendObj.compareTarget())
+        if(crypt1_box1 and crypt1_box2 and crypt2_box1 and crypt1_box2):
+            self.cmpr_disp(actual_backendObj.compareTarget())
 
     # checks cryptos selected and plots them,raises errors wherever necessary
     def plt(self):
@@ -233,5 +234,5 @@ class App(customtkinter.CTk):
 # main function that calls the app
 if __name__ == "__main__":
     app = App()
-    app.state("normal")
+    app.state("zoomed")
     app.mainloop()
